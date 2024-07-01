@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func createMigrationTable(db *sql.DB) error {
+func CreateMigrationTable(db *sql.DB) error {
 	_, err := db.Exec(
 		`CREATE TABLE IF NOT EXISTS migration_version (
 		id SERIAL PRIMARY KEY,
@@ -19,7 +19,7 @@ func createMigrationTable(db *sql.DB) error {
 	return nil
 }
 
-func getLatestMigrationVersion(db *sql.DB) (int64, error) {
+func GetLatestMigrationVersion(db *sql.DB) (int64, error) {
 	var version int64
 	err := db.QueryRow("SELECT COALESCE(MAX(version), 0) FROM migration_version").Scan(&version)
 	if err != nil {
@@ -28,7 +28,7 @@ func getLatestMigrationVersion(db *sql.DB) (int64, error) {
 	return version, nil
 }
 
-func applyMigration(db *sql.DB, filePath string, version int64) error {
+func ApplyMigration(db *sql.DB, filePath string, version int64) error {
 	// Открываем файл миграции
 	content, err := os.ReadFile(filePath)
 	if err != nil {
