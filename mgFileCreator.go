@@ -13,8 +13,8 @@ func GenerateFileName() string {
 
 func CreateMigrationFile() error {
 	// Убедимся, что папка migrations существует
-	if _, err := os.Stat("migrations"); os.IsNotExist(err) {
-		err := os.Mkdir("migrations", os.ModePerm)
+	if _, err := os.Stat("../migrations"); os.IsNotExist(err) {
+		err := os.Mkdir("../migrations", os.ModePerm)
 		if err != nil {
 			return fmt.Errorf("не удалось создать папку migrations: %w", err)
 		}
@@ -22,7 +22,7 @@ func CreateMigrationFile() error {
 
 	// Создаем файл миграции
 	fileName := GenerateFileName()
-	filePath := fmt.Sprintf("migrations/%s", fileName)
+	filePath := fmt.Sprintf("../migrations/%s", fileName)
 	file, err := os.Create(filePath)
 	if err != nil {
 		return fmt.Errorf("не удалось создать файл миграции: %w", err)
