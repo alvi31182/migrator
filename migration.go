@@ -7,6 +7,7 @@ import (
 )
 
 func CreateMigrationTable(db *sql.DB) error {
+	fmt.Println("Подключение к базе данных:", db)
 	_, err := db.Exec(
 		`CREATE TABLE IF NOT EXISTS migration_version (
 		id SERIAL PRIMARY KEY,
