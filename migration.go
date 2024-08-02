@@ -34,11 +34,11 @@ func ApplyMigration(db *sql.DB, filePath string, version int64) error {
 	// Открываем файл миграции
 	content, err := os.ReadFile(filePath)
 	if err != nil {
-		return fmt.Errorf("не удалось прочитать файл миграции: %w", filePath, err)
+		return fmt.Errorf("не удалось прочитать файл миграции: %s: %w", filePath, err)
 	}
 	_, err = db.Exec(string(content))
 	if err != nil {
-		return fmt.Errorf("не удалось применить миграцию: %w", filePath, err)
+		return fmt.Errorf("не удалось применить миграцию: %s: %w", filePath, err)
 	}
 
 	_, err = db.Exec("INSERT INTO migration_version (version) VALUES ($1)", version)
